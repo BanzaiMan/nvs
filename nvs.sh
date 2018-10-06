@@ -8,6 +8,7 @@
 # arguments to the main nvs.js script.
 
 set -x
+set -e
 
 # Try to locate the NVS_ROOT path, where the nvs scripts are installed.
 if [ -n "${BASH_SOURCE}" ]; then
