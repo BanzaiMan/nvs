@@ -7,9 +7,6 @@
 # This shell script merely bootstraps node.exe if necessary, then forwards
 # arguments to the main nvs.js script.
 
-set -x
-set -e
-
 # Try to locate the NVS_ROOT path, where the nvs scripts are installed.
 if [ -n "${BASH_SOURCE}" ]; then
 	export NVS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null && \pwd)"
@@ -89,9 +86,7 @@ nvs() {
 		fi
 
 		if [ "${NVS_OS}" = "win" ]; then
-		   # > /dev/null 2>&1
-			# 7z x "${NODE_ARCHIVE}" -so | 7z x -aoa -si -ttar -o"${NVS_HOME}/cache"
-			${NVS_ROOT}/tools/7-Zip/7zr.exe e "-o${NVS_HOME}/cache" -y "${NODE_ARCHIVE}" "${NODE_FULLNAME}/${NODE_EXE}"
+			${NVS_ROOT}/tools/7-Zip/7zr.exe e "-o${NVS_HOME}/cache" -y "${NODE_ARCHIVE}" "${NODE_FULLNAME}/${NODE_EXE}" > /dev/null 2>&1
 		else
 			tar $TAR_FLAGS "${NODE_ARCHIVE}" -C "${NVS_HOME}/cache" "${NODE_FULLNAME}/bin/${NODE_EXE}" > /dev/null 2>&1
 			mv "${NVS_HOME}/cache/${NODE_FULLNAME}/bin/${NODE_EXE}" "${NVS_HOME}/cache/${NODE_EXE}" > /dev/null 2>& 1
