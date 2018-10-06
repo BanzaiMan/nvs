@@ -7,6 +7,8 @@
 # This shell script merely bootstraps node.exe if necessary, then forwards
 # arguments to the main nvs.js script.
 
+set -x
+
 # Try to locate the NVS_ROOT path, where the nvs scripts are installed.
 if [ -n "${BASH_SOURCE}" ]; then
 	export NVS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null && \pwd)"
