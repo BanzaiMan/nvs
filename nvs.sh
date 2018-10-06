@@ -30,6 +30,11 @@ case $NVS_OS in mingw64_nt*)
 	export NVS_OS="win"
 esac
 
+# another possibility
+case $NVS_OS in msys_nt*)
+	export NVS_OS="win"
+esac
+
 nvs() {
 	# The NVS_HOME path may be overridden in the environment.
 	if [ -z "${NVS_HOME}" ]; then
@@ -83,15 +88,15 @@ nvs() {
 			return 1
 		fi
 
-		# if [ "${NVS_OS}" = "win" ]; then
+		if [ "${NVS_OS}" = "win" ]; then
 		   # > /dev/null 2>&1
-			7z x "${NODE_ARCHIVE}" -so | 7z x -aoa -si -ttar -o"${NVS_HOME}/cache"
-			#${NVS_ROOT}/tools/7-Zip/7zr.exe e "-o${NVS_HOME}/cache" -y "${NODE_ARCHIVE}" "${NODE_FULLNAME}/${NODE_EXE}"
-		# else
-		# 	tar $TAR_FLAGS "${NODE_ARCHIVE}" -C "${NVS_HOME}/cache" "${NODE_FULLNAME}/bin/${NODE_EXE}" > /dev/null 2>&1
-		#	mv "${NVS_HOME}/cache/${NODE_FULLNAME}/bin/${NODE_EXE}" "${NVS_HOME}/cache/${NODE_EXE}" > /dev/null 2>& 1
-		#	rm -r "${NVS_HOME}/cache/${NODE_FULLNAME}" > /dev/null 2>& 1
-		# fi
+			# 7z x "${NODE_ARCHIVE}" -so | 7z x -aoa -si -ttar -o"${NVS_HOME}/cache"
+			${NVS_ROOT}/tools/7-Zip/7zr.exe e "-o${NVS_HOME}/cache" -y "${NODE_ARCHIVE}" "${NODE_FULLNAME}/${NODE_EXE}"
+		else
+			tar $TAR_FLAGS "${NODE_ARCHIVE}" -C "${NVS_HOME}/cache" "${NODE_FULLNAME}/bin/${NODE_EXE}" > /dev/null 2>&1
+			mv "${NVS_HOME}/cache/${NODE_FULLNAME}/bin/${NODE_EXE}" "${NVS_HOME}/cache/${NODE_EXE}" > /dev/null 2>& 1
+			rm -r "${NVS_HOME}/cache/${NODE_FULLNAME}" > /dev/null 2>& 1
+	   fi
 
 		if [ ! -f "${NODE_PATH}" ]; then
 			echo "Failed to setup node binary."
