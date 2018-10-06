@@ -83,14 +83,14 @@ nvs() {
 			return 1
 		fi
 
-		if [ "${NVS_OS}" = "win" ]; then
+		# if [ "${NVS_OS}" = "win" ]; then
 		   # > /dev/null 2>&1
 			${NVS_ROOT}/tools/7-Zip/7zr.exe e "-o${NVS_HOME}/cache" -y "${NODE_ARCHIVE}" "${NODE_FULLNAME}/${NODE_EXE}"
-		else
-			tar $TAR_FLAGS "${NODE_ARCHIVE}" -C "${NVS_HOME}/cache" "${NODE_FULLNAME}/bin/${NODE_EXE}" > /dev/null 2>&1
-			mv "${NVS_HOME}/cache/${NODE_FULLNAME}/bin/${NODE_EXE}" "${NVS_HOME}/cache/${NODE_EXE}" > /dev/null 2>& 1
-			rm -r "${NVS_HOME}/cache/${NODE_FULLNAME}" > /dev/null 2>& 1
-		fi
+		# else
+		# 	tar $TAR_FLAGS "${NODE_ARCHIVE}" -C "${NVS_HOME}/cache" "${NODE_FULLNAME}/bin/${NODE_EXE}" > /dev/null 2>&1
+		#	mv "${NVS_HOME}/cache/${NODE_FULLNAME}/bin/${NODE_EXE}" "${NVS_HOME}/cache/${NODE_EXE}" > /dev/null 2>& 1
+		#	rm -r "${NVS_HOME}/cache/${NODE_FULLNAME}" > /dev/null 2>& 1
+		# fi
 
 		if [ ! -f "${NODE_PATH}" ]; then
 			echo "Failed to setup node binary."
